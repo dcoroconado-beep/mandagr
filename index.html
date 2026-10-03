@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datos bancarios - Matías Hidalgo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+    }
+    .card {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      border-radius: 24px;
+      padding: 30px 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.08);
+    }
+    h1 {
+      margin: 0 0 24px;
+      font-size: 26px;
+      text-align: center;
+    }
+    .label {
+      color: #6e6e73;
+      font-size: 13px;
+      margin-top: 15px;
+      margin-bottom: 3px;
+    }
+    .value {
+      font-size: 18px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+    button {
+      width: 100%;
+      margin-top: 28px;
+      border: 0;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #1d1d1f;
+      color: white;
+    }
+    #status {
+      min-height: 22px;
+      margin: 12px 0 0;
+      text-align: center;
+      font-size: 14px;
+      color: #4b4b4f;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Datos bancarios</h1>
+
+    <div class="label">Nombre</div>
+    <div class="value">Matías Hidalgo</div>
+
+    <div class="label">RUT</div>
+    <div class="value">18.382.741-3</div>
+
+    <div class="label">Banco</div>
+    <div class="value">Banco Estado</div>
+
+    <div class="label">Tipo de cuenta</div>
+    <div class="value">Cuenta Rut</div>
+
+    <div class="label">N° de cuenta</div>
+    <div class="value">18382741</div>
+
+    <button type="button" onclick="copiarDatos()">Copiar datos</button>
+    <p id="status" aria-live="polite"></p>
+  </main>
+
+  <script>
+    const datos = `Matías Hidalgo
+18.382.741-3
+Banco Estado
+Cuenta Rut
+N°18382741`;
+
+    async function copiarDatos() {
+      const status = document.getElementById("status");
+      try {
+        await navigator.clipboard.writeText(datos);
+        status.textContent = "✓ Datos copiados";
+      } catch (e) {
+        const area = document.createElement("textarea");
+        area.value = datos;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        status.textContent = "✓ Datos copiados";
+      }
+    }
+  </script>
+</body>
+</html>
